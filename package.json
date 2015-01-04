@@ -1,0 +1,27 @@
+{
+  "name": "highland-unix-sort",
+  "version": "1.0.0",
+  "description": "Unix sort as a highland consumer.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Islam Sharabash",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "github.com/ibash/highland-unix-sort"
+  },
+  "keywords": [
+    "highland",
+    "sort",
+    "stream"
+  ],
+  "bugs": {
+    "url": "https://github.com/ibash/highland-unix-sort/issues"
+  },
+  "homepage": "https://github.com/ibash/highland-unix-sort",
+  "dependencies": {
+    "highland": "^2.2.0"
+  }
+}
