@@ -12,6 +12,10 @@ module.exports = function highlandUnixSort(keys) {
       sort,
       cut;
 
+  if (!keys || !keys.length) {
+    throw new Error('one or more sort keys are required');
+  }
+
   function through(stream) {
     initSort();
     initCut();
@@ -27,9 +31,9 @@ module.exports = function highlandUnixSort(keys) {
   function initSort() {
     var args = ['-s', '-t', delimiter];
 
-    for (var i = 1; i < keys.length; i++) {
+    for (var i = 0; i < keys.length; i++) {
       args.push('-k');
-      args.push(i + ',' + i);
+      args.push((i + 1) + ',' + (i + 1));
     }
 
     sort = spawn('sort', args);
@@ -50,7 +54,7 @@ module.exports = function highlandUnixSort(keys) {
       } else {
         // stringify to escape special characters, substring to remove quotes on edges
         keyValue = JSON.stringify(value[keys[i]]);
-        keyValue = keyValue.substring(1, keyValue.length);
+        keyValue = keyValue.substring(1, keyValue.length - 1);
       }
 
       keyValues.push(keyValue);

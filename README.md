@@ -18,7 +18,7 @@ This performs a sort using the unix sort command.
       {},
       {name: 'alice'}
     ])
-    .through(sort(['name'])
+    .through(sort(['name']))
     .toArray(function(arr) { console.log(array); })
     // output is [ {}, { name: 'alice' }, { name: 'joe' }, { name: 'sam' } ]
 
