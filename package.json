@@ -1,6 +1,6 @@
 {
   "name": "highland-unix-sort",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Unix sort written in highland.",
   "main": "index.js",
   "scripts": {
@@ -22,7 +22,8 @@
   },
   "homepage": "https://github.com/ibash/highland-unix-sort",
   "dependencies": {
-    "highland": "^2.2.0"
+    "highland": "^2.2.0",
+    "highland-through-process": "^1.0.0"
   },
   "devDependencies": {
     "chai": "^1.10.0",

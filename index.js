@@ -1,5 +1,6 @@
 var _ = require('highland'),
-    spawn = require('child_process').spawn;
+    spawn = require('child_process').spawn,
+    throughProcess = require('highland-through-process');
 
 /**
  * highlandUnixSort
@@ -65,13 +66,6 @@ module.exports = function highlandUnixSort(keys) {
 
   function parseJSON(line) {
     return JSON.parse(line);
-  }
-
-  function throughProcess(process) {
-    return function(stream) {
-      stream.pipe(process.stdin);
-      return _(process.stdout);
-    };
   }
 
   return through;
