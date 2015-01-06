@@ -1,6 +1,6 @@
 var _ = require('highland'),
     spawn = require('child_process').spawn,
-    throughProcess = require('highland-through-process');
+    throughProcess = require('highland-process').through;
 
 /**
  * highlandUnixSort
