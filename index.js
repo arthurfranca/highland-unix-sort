@@ -55,7 +55,12 @@ module.exports = function highlandUnixSort(keys) {
       } else {
         // stringify to escape special characters, substring to remove quotes on edges
         keyValue = JSON.stringify(value[keys[i]]);
-        keyValue = keyValue.substring(1, keyValue.length - 1);
+
+        // trim off quotes produced by JSON.stringify
+        // note that quotes aren't always produced
+        if (keyValue[0] === '"' && keyValue[keyValue.length - 1] === '"') {
+          keyValue = keyValue.substring(1, keyValue.length - 1);
+        }
       }
 
       keyValues.push(keyValue);

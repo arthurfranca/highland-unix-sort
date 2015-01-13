@@ -64,4 +64,23 @@ describe('sort', function() {
 
     assert.throws(causeError, 'Cannot read property \'name\' of undefined');
   });
+
+  it('sorts primitive numbers', function(done) {
+    _([
+      {key: 10, name: 'sam'},
+      {key: 5, name: 'joe'},
+      {},
+      {key: 20, name: 'alice'}
+    ])
+    .through(sort(['key']))
+    .toArray(function(results) {
+      assert.deepEqual(results, [
+        {},
+        {key: 10, name: 'sam'},
+        {key: 20, name: 'alice'},
+        {key: 5, name: 'joe'}
+      ]);
+      done();
+    });
+  });
 });
