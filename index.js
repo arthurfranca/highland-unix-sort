@@ -26,6 +26,7 @@ module.exports = function highlandUnixSort(keys) {
       .through(throughProcess(sort))
       .through(throughProcess(cut))
       .split()
+      .filter(filterEmpty)
       .map(parseJSON);
   }
 
@@ -67,6 +68,10 @@ module.exports = function highlandUnixSort(keys) {
     }
 
     return keyValues.join(delimiter) + delimiter + JSON.stringify(value) + '\n';
+  }
+
+  function filterEmpty(line) {
+    return line !== '';
   }
 
   function parseJSON(line) {

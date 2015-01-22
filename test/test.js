@@ -51,18 +51,23 @@ describe('sort', function() {
     assert.throws(noKey, 'one or more sort keys are required');
   });
 
-  it('does not handle type errors', function() {
-    function causeError() {
-      _([
-        {name: 'sam'},
-        {name: 'joe'},
-        undefined,
-        {name: 'alice'}
-      ])
-      .through(sort(['name']));
-    }
-
-    assert.throws(causeError, 'Cannot read property \'name\' of undefined');
+  it('does not handle type errors', function(done) {
+    var isErrorPassed = false;
+    _([
+      {name: 'sam'},
+      {name: 'joe'},
+      undefined,
+      {name: 'alice'}
+    ])
+    .through(sort(['name']))
+    .errors(function(error, push) {
+      assert.equal(error.message, 'Cannot read property \'name\' of undefined');
+      isErrorPassed = true;
+    })
+    .toArray(function() {
+      assert.isTrue(isErrorPassed);
+      done();
+    });
   });
 
   it('sorts primitive numbers', function(done) {
@@ -82,5 +87,35 @@ describe('sort', function() {
       ]);
       done();
     });
+  });
+
+  it('lets errors pass through', function(done) {
+    var isErrorPassed = false;
+
+    _(function(push, next) {
+      push(null, {name: 'sam'});
+      push(null, {name: 'joe'});
+      push(null, {});
+      push(new Error('find me!'));
+      push(null, {name: 'alice'});
+      push(null, _.nil);
+      next();
+    })
+    .through(sort(['name']))
+    .errors(function(error) {
+      assert.equal(error.message, 'find me!');
+      isErrorPassed = true;
+    })
+    .toArray(function(results) {
+      assert.deepEqual(results, [
+        {},
+        {name: 'alice'},
+        {name: 'joe'},
+        {name: 'sam'}
+      ]);
+      assert.isTrue(isErrorPassed);
+      done();
+    });
+
   });
 });
