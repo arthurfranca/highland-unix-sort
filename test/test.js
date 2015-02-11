@@ -99,7 +99,6 @@ describe('sort', function() {
       push(new Error('find me!'));
       push(null, {name: 'alice'});
       push(null, _.nil);
-      next();
     })
     .through(sort(['name']))
     .errors(function(error) {
