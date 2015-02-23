@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/ibash/highland-unix-sort",
   "dependencies": {
-    "highland": "git://github.com/ibash/highland.git#478d3db5984d7037ed2fd7ecb7644555436a7bea",
+    "highland": "^2.4.0",
     "highland-process": "^1.0.3"
   },
   "devDependencies": {
