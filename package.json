@@ -1,6 +1,6 @@
 {
   "name": "highland-unix-sort",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Unix sort written in highland.",
   "main": "index.js",
   "scripts": {

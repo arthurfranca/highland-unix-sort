@@ -43,6 +43,27 @@ describe('sort', function() {
     });
   });
 
+  it('sorts as numbers or strings', function(done) {
+    _([
+      {score: 2000, name: 'Joe'},
+      {score: 2000, name: 'Arthur'},
+      {score: 2000, name: 'Bob'},
+      {score: 210, name: 'Sonic'},
+      {score: 21.001, name: 'Tails'}
+    ])
+    .through(sort({ score: true, name: false }))
+    .toArray(function(results) {
+      assert.deepEqual(results, [
+        {score: 21.001, name: 'Tails'},
+        {score: 210, name: 'Sonic'},
+        {score: 2000, name: 'Arthur'},
+        {score: 2000, name: 'Bob'},
+        {score: 2000, name: 'Joe'}
+      ]);
+      done();
+    });
+  });
+
   it('requires a key', function() {
     function noKey() {
       return sort([]);

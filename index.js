@@ -11,7 +11,15 @@ var _ = require('highland'),
 module.exports = function highlandUnixSort(keys) {
   var delimiter = '\t',
       sort,
-      cut;
+      cut,
+      numKeys;
+
+  if (Object.prototype.toString.call(keys) === '[object Object]') {
+    numKeys = keys;
+    keys = Object.keys(keys);
+  } else {
+    numKeys = {};
+  }
 
   if (!keys || !keys.length) {
     throw new Error('one or more sort keys are required');
@@ -32,13 +40,16 @@ module.exports = function highlandUnixSort(keys) {
 
   function initSort() {
     var args = ['-s', '-t', delimiter];
+    var numFlag;
 
     for (var i = 0; i < keys.length; i++) {
+      numFlag = numKeys[keys[i]] ? 'n' : ''
+
       args.push('-k');
-      args.push((i + 1) + ',' + (i + 1));
+      args.push((i + 1) + ',' + (i + 1) + numFlag);
     }
 
-    sort = spawn('sort', args);
+    sort = spawn('sort', args, { env: { LC_ALL: 'C' }});
   }
 
   function initCut() {
